@@ -22,4 +22,8 @@ Book.prototype.Info = function() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus()}`;
 }
 
-const daHobbit = new Book('hobbit', 'jr tokin', '69', false);
+function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
+    myLibrary.push(Book(bTitle, bAuthor, bPages, bRead))
+}
+
+const daHobbit = new Book('hobbit', 'jr tokin', '69', false); 
