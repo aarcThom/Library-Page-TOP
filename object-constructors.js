@@ -45,6 +45,12 @@ function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
     screenLibrary.appendChild(newBook.ScreenInfo());
 }
 
+// STARTUP ADDING ALL BOOKS TO SHELF
+window.onload = (event) => {
+    Object.values(myLibrary).forEach(k => AddBookToLibrary(k.title, k.author, k.pages, k.read));
+}
+
+
 // the add book button
 const newBookButton = document.querySelector('#add_button');
 newBookButton.addEventListener("click", function(){AddBookToLibrary('yo','yo',69,false);});
