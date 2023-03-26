@@ -13,7 +13,45 @@
         <div id="library_panel">
         </div>
         <div id="side_panel">
-            <button id="add_button">Add a book!</button>
+            <button id="add_button" type="submit" form="book_form">ADD YOUR BOOK!</button>
+            <form id="book_form">
+                <fieldset>
+                    <legend id="form_title">ENTER YOUR BOOK INFO!</legend>
+
+                    <p class="form-field">
+                        <label for="book_title">BOOK TITLE</label>
+                        <input type="text" name="book_title" id="book_title" class="form_input" required
+                        minlength="2" maxlength="50"
+                        placeholder="Angry All the Time: An Emergency Guide to Anger Control"
+                        title="GIMME THE BOOK TITLE!"/>
+                    </p>
+
+                    <p class="form-field">
+                        <label for="book_author">AUTHOR</label>
+                        <input type="text" name="book_author" id="book_author" class="form_input" required
+                        minlength="2" maxlength="50"
+                        placeholder="Dr. Seuss"
+                        title="WHO WROTE THE BOOK!?!"/>
+                    </p>
+
+                    <p class="form-field">
+                        <label for="no_pages">NUMBER OF PAGES</label>
+                        <input type="number" name="no_pages" id="no_pages" class="form_input" required
+                        placeholder= 99
+                        title="HOW MANY PAGES IN THE BOOK!?!?!?!"/>
+                    </p>
+
+                    <p class="form-toggle">
+                        <label for="is_read">HAVE YOU EVEN READ IT?!</label>
+                        <!-- This hidden item returns a no if the checkbox is unchecked-->
+                        <input type="hidden" name="is_read" value="no"/>
+
+                        <input type="checkbox" name="is_read" id="is_read" value= "yes"
+                        title="HAVE YOU READ THE DAMN BOOK?!?!!"/>
+                    </p>
+
+                </fieldset>
+            </form>
         </div>
     </div>
     <script src="object-constructors.js"></script>

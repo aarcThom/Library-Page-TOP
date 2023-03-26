@@ -1,6 +1,3 @@
-// grabbing global variables
-const docRoot = document.querySelector(':root');
-
 /* Making a constructor for a book object. The object should have the book's title, author, number of pages, 
 and whether or not the book has been read */
 
@@ -33,29 +30,39 @@ Book.prototype.ScreenInfo = function() {
 // the main library grid contrainer
 const screenLibrary = document.getElementById('library_panel');
 
-let myLibrary = [
+const myLibrary = [
     new Book('The Hobbit', 'J.R. Tolkien', 100, false),
     new Book('A Dog Book', "Ruff Mcbark", 77, true),
     new Book('The Big Book of Kavorka', "Anne M.L. Lure", 99, false)
 ];
 
+function ReadBookForm(form) {
+    const formData = new FormData(form).entries();
+    // eslint-disable-next-line prefer-const, no-restricted-syntax
+    for (const pair of formData) {
+        console.log(pair[1]);
+    }
+}
+
 function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
-    let newBook = new Book(bTitle, bAuthor, bPages, bRead);
+
+    const newBook = new Book(bTitle, bAuthor, bPages, bRead);
     myLibrary.push(newBook);
     screenLibrary.appendChild(newBook.ScreenInfo());
 }
 
 // STARTUP ADDING ALL BOOKS TO SHELF
-window.onload = (event) => {
-    Object.values(myLibrary).forEach(k => AddBookToLibrary(k.title, k.author, k.pages, k.read));
+window.onload = () => {
+    myLibrary.forEach((bk) => {
+        AddBookToLibrary(bk.title, bk.author, bk.pages, bk.read);
+    });
 }
 
 
-// the add book button
-const newBookButton = document.querySelector('#add_button');
-newBookButton.addEventListener("click", function(){AddBookToLibrary('yo','yo',69,false);});
-newBookButton.onclick = () => console.log(myLibrary);
-
-
-
-
+// the form with submit button
+const bookForm = document.getElementById("book_form");
+bookForm.addEventListener("submit", (event) => {
+    event.preventDefault(); // preventing the default submit behaviour
+    ReadBookForm(event.target);
+    AddBookToLibrary('yo','yo', 69, false);
+});

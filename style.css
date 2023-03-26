@@ -48,5 +48,43 @@ body {
 #side_panel {
     grid-column: 2;
     grid-row: 2;
+
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+}
+
+#add_button {
+    grid-row: 1;
+    width: 80%;
+    height: 50px;
+    margin: auto;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    background-color: yellow;
+}
+
+fieldset { 
+    /* removes the ungly default HTML border from the form*/
+    border: 3px solid black;
+    width: 94%;
+}
+
+#form_title {
+    background-color: yellow;
+}
+
+#book_form {
+    width: 80%;
+    margin: 0 auto;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.form_input {
+    width: 95%;
 }
 
