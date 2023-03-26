@@ -37,11 +37,20 @@ const myLibrary = [
 ];
 
 function ReadBookForm(form) {
+
+    const entriesArray = [];
     const formData = new FormData(form).entries();
     // eslint-disable-next-line prefer-const, no-restricted-syntax
     for (const pair of formData) {
-        console.log(pair[1]);
-    }
+        entriesArray.push(pair[1]);
+    };
+
+    if (entriesArray.length === 4) {
+        entriesArray[3] = true;
+    } else {
+        entriesArray.push(false);
+    };
+    return entriesArray;
 }
 
 function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
@@ -63,6 +72,7 @@ window.onload = () => {
 const bookForm = document.getElementById("book_form");
 bookForm.addEventListener("submit", (event) => {
     event.preventDefault(); // preventing the default submit behaviour
-    ReadBookForm(event.target);
-    AddBookToLibrary('yo','yo', 69, false);
+    const newBook = ReadBookForm(event.target);
+    AddBookToLibrary(newBook[0],newBook[1], newBook[2], newBook[3]);
+    bookForm.reset();
 });
