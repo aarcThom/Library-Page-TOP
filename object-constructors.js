@@ -30,6 +30,16 @@ Book.prototype.ScreenInfo = function() {
     bookPages.className = 'book_pages';
     bookPages.textContent = `${this.pages} pages`;
 
+    const readStatus = document.createElement('div');
+    if (this.read) {
+        readStatus.className = 'readstat_read';
+        readStatus.textContent = 'YOU READ THIS!';
+    } else {
+        readStatus.className = 'readstat_unread';
+        readStatus.textContent = 'YOU HAVE NOT READ THIS!';
+    }
+
+
     const bookButtonContainer = document.createElement('div');
     bookButtonContainer.className = 'book_btn_cont';
 
@@ -39,20 +49,40 @@ Book.prototype.ScreenInfo = function() {
 
     bookButtonContainer.appendChild(removeBookBtn);
 
+    const readStatusContainer = document.createElement('div');
+    readStatusContainer.className = 'book_btn_cont';
+
+    const readStatusBtn = document.createElement('button');
+    if (this.read) {
+        readStatusBtn.className = 'mark_unread_btn';
+        readStatusBtn.textContent = 'BE HONEST. MARK IT UNREAD!';
+    } else {
+        readStatus.className = 'mark_read_btn';
+        readStatusBtn.textContent = 'MARK IT READ!';
+    }
+    readStatusContainer.appendChild(readStatusBtn);
+
+
     newSBook.appendChild(bookTitle);
     newSBook.appendChild(bookAuthor);
     newSBook.appendChild(bookPages);
+    newSBook.appendChild(readStatus);
     newSBook.appendChild(bookButtonContainer);
+    newSBook.appendChild(readStatusContainer);
 
 
-    // adding the event listener for the button
+    // grabbing the parent book element
+    const bookParent = removeBookBtn.parentElement.parentElement;
+
+    // grabbing the book title
+    const currentTitle = bookParent.firstChild.textContent;
+
+    // grabbing current read status
+    const currentStatus = bookParent.querySelector(':nth-child(4)')
+
+
+    // adding the event listener for the remove button
     removeBookBtn.addEventListener('click', () => {
-        // grabbing the parent book element
-        const bookParent = removeBookBtn.parentElement.parentElement;
-
-        // grabbing the book title
-        const currentTitle = bookParent.firstChild.textContent;
-
         // remove from the library list
         // eslint-disable-next-line no-use-before-define
         RemoveBookFromLibrary(currentTitle);
@@ -60,6 +90,24 @@ Book.prototype.ScreenInfo = function() {
         bookParent.remove();
 
     })
+
+    // adding the event listener for the read status button
+    readStatusBtn.addEventListener('click', () => {
+        // eslint-disable-next-line no-use-before-define
+        ChangeReadStatus(currentTitle);
+        if (readStatusBtn.className === 'mark_unread_btn') {
+            readStatusBtn.className = 'mark_read_btn';
+            readStatusBtn.textContent = 'MARK IT READ!';
+            currentStatus.textContent = 'YOU HAVE NOT READ THIS!';
+        } else {
+            readStatusBtn.className = 'mark_unread_btn';
+            readStatusBtn.textContent = 'BE HONEST. MARK IT UNREAD!';
+            currentStatus.textContent = 'YOU READ THIS!';
+
+        }
+
+    })
+
 
     return newSBook;
 }
@@ -120,6 +168,12 @@ function RemoveBookFromLibrary(bkTitle) {
     const matchTitle = (book) => book.title === bkTitle; // matching titles
     const bkToRemove = myLibrary.findIndex(matchTitle); // find index of matching title
     myLibrary.splice(bkToRemove, 1); // removing the matched title from the array
+}
+
+function ChangeReadStatus(bkTitle) {
+    const matchTitle = (book) => book.title === bkTitle; // matching titles
+    const bkIndex = myLibrary.findIndex(matchTitle); // find index of matching title
+    myLibrary[bkIndex].isRead();
 }
 
 // STARTUP ADDING ALL BOOKS TO SHELF
