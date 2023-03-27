@@ -30,9 +30,36 @@ Book.prototype.ScreenInfo = function() {
     bookPages.className = 'book_pages';
     bookPages.textContent = `${this.pages} pages`;
 
+    const bookButtonContainer = document.createElement('div');
+    bookButtonContainer.className = 'book_btn_cont';
+
+    const removeBookBtn = document.createElement('button');
+    removeBookBtn.className = 'remove_book_btn';
+    removeBookBtn.textContent = 'REMOVE THIS BOOK!';
+
+    bookButtonContainer.appendChild(removeBookBtn);
+
     newSBook.appendChild(bookTitle);
     newSBook.appendChild(bookAuthor);
     newSBook.appendChild(bookPages);
+    newSBook.appendChild(bookButtonContainer);
+
+
+    // adding the event listener for the button
+    removeBookBtn.addEventListener('click', () => {
+        // grabbing the parent book element
+        const bookParent = removeBookBtn.parentElement.parentElement;
+
+        // grabbing the book title
+        const currentTitle = bookParent.firstChild.textContent;
+
+        // remove from the library list
+        // eslint-disable-next-line no-use-before-define
+        RemoveBookFromLibrary(currentTitle);
+        // remove from the DOM
+        bookParent.remove();
+
+    })
 
     return newSBook;
 }
@@ -72,7 +99,6 @@ function AreBooksEqual(book1, book2) {
 function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
 
     let duplicate = false;
-
     const newBook = new Book(bTitle, bAuthor, bPages, bRead);
 
     // checking if the book is already in the library array
@@ -88,6 +114,12 @@ function AddBookToLibrary(bTitle, bAuthor, bPages,bRead) {
         screenLibrary.appendChild(newBook.ScreenInfo());
     }
 
+}
+
+function RemoveBookFromLibrary(bkTitle) {
+    const matchTitle = (book) => book.title === bkTitle; // matching titles
+    const bkToRemove = myLibrary.findIndex(matchTitle); // find index of matching title
+    myLibrary.splice(bkToRemove, 1); // removing the matched title from the array
 }
 
 // STARTUP ADDING ALL BOOKS TO SHELF
