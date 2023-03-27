@@ -18,9 +18,20 @@ Book.prototype.ScreenInfo = function() {
     const newSBook = document.createElement('div');
     newSBook.className = 'book';
 
+
+    // creating a random color for the title background because why not
+    // eslint-disable-next-line prefer-template
+    const randoColour = '#' + Math.floor(Math.random()*16777215).toString(16);
+
     const bookTitle = document.createElement('div');
     bookTitle.className = 'book_title';
-    bookTitle.textContent = this.title;
+    bookTitle.style.backgroundColor = randoColour;
+
+    const bookTitleText = document.createElement('div');
+    bookTitleText.className = 'bk_title_txt';
+    bookTitleText.textContent = this.title;
+
+    bookTitle.appendChild(bookTitleText);
 
     const bookAuthor = document.createElement('div');
     bookAuthor.className = 'book_author';
@@ -57,7 +68,7 @@ Book.prototype.ScreenInfo = function() {
         readStatusBtn.className = 'mark_unread_btn';
         readStatusBtn.textContent = 'BE HONEST. MARK IT UNREAD!';
     } else {
-        readStatus.className = 'mark_read_btn';
+        readStatusBtn.className = 'mark_read_btn';
         readStatusBtn.textContent = 'MARK IT READ!';
     }
     readStatusContainer.appendChild(readStatusBtn);
